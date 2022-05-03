@@ -47,6 +47,7 @@ void ConfigTask::initSupported() {
   supported_.push_back("mode");
   supported_.push_back("attack_mode");
   supported_.push_back("attack_submode");
+  supported_.push_back("distribution_mode");
   supported_.push_back("hash_type");
   supported_.push_back("name");
   supported_.push_back("charset1");
