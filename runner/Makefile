@@ -30,6 +30,11 @@ windows: CXX=x86_64-w64-mingw32-g++
 windows: LDXXFLAGS+=-L'./lib/windows_x86_64/'
 windows: $(OBJDIR) $(BINDIR) runner
 
+mac: TARGET=runner.app
+mac: CXX=clang++
+mac: LDXXFLAGS+=-L'./lib/darwin_arm64/'
+mac: $(OBJDIR) $(BINDIR) runner
+
 $(OBJDIR): 
 	mkdir -p $@
 
