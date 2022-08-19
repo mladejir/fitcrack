@@ -109,12 +109,14 @@ int ProcessLinux::run() {
 }
 
 void ProcessLinux::killIfRunning() {
+  #if 0
   std::string proc = getExecutable();
   if (proc.find(".") == 0)
     proc = proc.erase(0, 2);
   std::string kill_cmd = "pkill -f " + proc;
   int ret = system(kill_cmd.c_str());
   (void)ret;
+  #endif
 }
 
 #endif // __linux__

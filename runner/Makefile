@@ -13,7 +13,7 @@ $(shell echo 'void ehframe_dummy (void) { }' > $(BINDIR)/ehframe_dummy.C)
 
 CXXFLAGS=-DGIT_REV="\"$(GIT_REV)\"" -Werror -Wall -Wextra -O3 -g3 -std=c++11
 CXXPATHS=-I'./include/' -I'./include/boinc/' -I'./include/libzip/'
-LDXXFLAGS=--static -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -lboinc_api -lboinc -lzip -lz
+LDXXFLAGS=-Wl,--whole-archive -lpthread -Wl,--no-whole-archive -lboinc_api -lboinc -lzip -lz
 
 SRCS=$(shell find $(SRCDIR) -name *.cpp)
 OBJS=$(subst $(SRCDIR),$(OBJDIR),$(subst .cpp,.o,$(SRCS)))
@@ -32,6 +32,7 @@ windows: $(OBJDIR) $(BINDIR) runner
 
 mac: TARGET=runner.app
 mac: CXX=clang++
+mac: LDXXFLAGS=-lpthread -lboinc_api -lboinc -lzip -lz
 mac: LDXXFLAGS+=-L'./lib/darwin_arm64/'
 mac: $(OBJDIR) $(BINDIR) runner
 

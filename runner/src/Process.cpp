@@ -17,7 +17,7 @@ ProcessBase* Process::create(const std::vector<std::string>& arguments, Director
 ProcessBase* Process::create(std::string prefix, const std::vector<std::string>& arguments, Directory &directory)
 {
   File executable;
-  #ifdef PROCESSLINUX_HPP
+  #if defined (PROCESSLINUXX_HPP)
   if(!directory.findVersionedFile(prefix, "bin", executable)) {
     RunnerUtils::runtimeException("Couldn't find: " + prefix + ".bin");
   }
@@ -26,6 +26,11 @@ ProcessBase* Process::create(std::string prefix, const std::vector<std::string>&
   #elif defined (PROCESSWINDOWS_HPP)
   directory.findVersionedFile(prefix, "exe", executable);
   return new ProcessWindows(executable.getRelativePath(), arguments, false);
+  #elif defined (PROCESSLINUX_HPP) // hack
+  if(!directory.findVersionedFile(prefix, "app", executable)) {
+    RunnerUtils::runtimeException("Couldn't find: " + prefix + ".app");
+  }
+  return new ProcessLinux(executable.getRelativePath(), arguments, false);
   #else
   #error "No viable Process implementation. This is caused by your target platfrom. Supported platforms are __linux__, _WIN32."
   #endif
