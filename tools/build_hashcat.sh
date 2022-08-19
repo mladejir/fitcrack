@@ -10,7 +10,8 @@ make win -j
 
 chmod +x hashcat
 else
-make mac -j
+patch -p1 < ../hashcat.patch
+make -j
 fi
 
 chmod +x hashcat
@@ -33,5 +34,5 @@ rm -rf hashcat
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 echo "Created: hashcat_files.zip, hashcat.bin, hashcat.exe"
 else
-echo "Created: hashcat_files.zip, hashcat.bin, hashcat.app"
+echo "Created: hashcat_files.zip, hashcat.app"
 fi
